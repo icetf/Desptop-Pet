@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>强制休息时间</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      user-select: none;
+    }
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 24px;
+      margin-bottom: 40px;
+      color: #ccc;
+    }
+    #timer {
+      font-size: 80px;
+      font-weight: bold;
+      color: #4caf50;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>现在是休息时间</h1>
+  <p>为了您的健康，请离开屏幕，活动一下身体。</p>
+  <div id="timer">05:00</div>
+  <script>
+    const { ipcRenderer } = require('electron');
+    let timeLeft = 5 * 60; // 5 minutes
+
+    const timerEl = document.getElementById('timer');
+    
+    const interval = setInterval(() => {
+      timeLeft--;
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        window.close(); // The main process allows closing when time is up
+      } else {
+        const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const s = (timeLeft % 60).toString().padStart(2, '0');
+        timerEl.innerText = `${m}:${s}`;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

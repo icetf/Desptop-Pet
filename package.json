@@ -1,0 +1,46 @@
+{
+  "name": "desktop-pet-assistant",
+  "version": "1.0.0",
+  "description": "智能桌面宠物健康提醒系统",
+  "main": "src/main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.desktoppet.assistant",
+    "productName": "DesktopPet",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "crypto-js": "^4.2.0",
+    "electron-store": "^8.1.0",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "electron": "^29.2.0",
+    "electron-builder": "^24.13.3"
+  }
+}

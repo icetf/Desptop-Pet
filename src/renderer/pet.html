@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Desktop Pet</title>
+  <style>
+    :root {
+      --pet-filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.25));
+      --bubble-bg: #ffffff;
+      --bubble-text: #5b4300;
+    }
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      user-select: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-sizing: border-box;
+    }
+    #pet-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+      box-sizing: border-box;
+      position: relative;
+    }
+    #pet-shell {
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      cursor: grab;
+      transition: margin-top 0.24s ease;
+    }
+    #pet-shell.with-bubble {
+      margin-top: 54px;
+    }
+    #pet-shell.dragging {
+      cursor: grabbing;
+    }
+    #pet-image {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      cursor: pointer;
+      filter: var(--pet-filter);
+      transition: transform 0.3s;
+      pointer-events: none;
+    }
+    #pet-image:hover {
+      transform: scale(1.1);
+    }
+    #bubble {
+      background: var(--bubble-bg);
+      border-radius: 16px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      display: none;
+      width: max-content;
+      max-width: none;
+      text-align: center;
+      white-space: nowrap;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--bubble-text);
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+    #bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      margin-left: -10px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: var(--bubble-bg) transparent transparent transparent;
+    }
+    #tip {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="pet-container">
+    <div id="bubble">主人，该休息啦！</div>
+    <div id="pet-shell">
+      <img id="pet-image" src="../assets/pets/default.svg" alt="Pet" draggable="false">
+    </div>
+    <div id="tip">左键互动，拖拽吸附，右键菜单</div>
+  </div>
+  <script src="./pet.js"></script>
+</body>
+</html>
